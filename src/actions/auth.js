@@ -5,6 +5,7 @@ export const LOGIN_FAILURE = '@@auth/LOGIN_FAILURE';
 export const TOKEN_REQUEST = '@@auth/TOKEN_REQUEST';
 export const TOKEN_RECEIVED = '@@auth/TOKEN_RECEIVED';
 export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE';
+export const USER_LOGOUT = '@@auth/USER_LOGOUT';
 
 export const login = (email, password) => ({
   [RSAA]: {
@@ -27,4 +28,8 @@ export const refreshAccessToken = (token) => ({
       TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE
     ]
   }
+})
+export const userLogout = content => ({
+  type: USER_LOGOUT,
+  payload: {}
 })

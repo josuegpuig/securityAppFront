@@ -1,3 +1,12 @@
 .section-home {
     padding: 0.75rem;
 }
+
+.state-image {
+    display: flex;
+    justify-content: center;
+
+    img {
+        width: 80%;
+    }
+}

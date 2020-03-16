@@ -6,6 +6,7 @@ const initialState = {
   errors: {},
 }
 export default (state=initialState, action) => {
+  console.log(action);
   switch(action.type) {
     case auth.LOGIN_SUCCESS:
       return {
@@ -36,6 +37,12 @@ export default (state=initialState, action) => {
              action.payload.response || 
                 {'non_field_errors': action.payload.statusText},
       }
+    case auth.USER_LOGOUT:
+      return {
+        access: undefined,
+        refresh: undefined,
+        errors: {}
+      }
     default:
       return state
     }
@@ -61,6 +68,7 @@ export function isAccessTokenExpired(state) {
 }
 export function isRefreshTokenExpired(state) {
   if (state.refresh && state.refresh.exp) {
+    console.log(1000 * state.refresh.exp - (new Date()).getTime());
     return 1000 * state.refresh.exp - (new Date()).getTime() < 5000
   }
   return true
@@ -70,4 +78,12 @@ export function isAuthenticated(state) {
 }
 export function errors(state) {
    return  state.errors
+}
+
+export function authenticatedUser(state) {
+    if (isAuthenticated(state)) {
+        return state.access.user_id;
+    }
+
+    return false;
 }

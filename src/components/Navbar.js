@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
+
+import { isAuthenticated, authenticatedUser } from '../reducers'
+import { userLogout } from  '../actions/auth'
 
 //import logo from '../assets/img/logo-test.png';
 
-function NavBar() {
-  const correctPage = () => {
-    return 'none';
+function NavBar(props) {
+  useEffect(() => {
+    console.log(props);
+  });
+  const log_out = () => {
+    props.onLogOut();
   }
   const [isActive, setisActive] = useState(false);
 
@@ -36,41 +43,34 @@ function NavBar() {
           </Link>
 
           <Link to="/city" className="navbar-item">
-            Documentation
+            Ciudades
           </Link>
-
-          <div className="navbar-item has-dropdown is-hoverable">
-            <a href={void(0)} className="navbar-link">
-              More
-            </a>
-
-            <div className="navbar-dropdown">
-              <a href={void(0)} className="navbar-item">
-                About
-              </a>
-              <a href={void(0)} className="navbar-item">
-                Jobs
-              </a>
-              <a href={void(0)} className="navbar-item">
-                Contact
-              </a>
-              <hr className="navbar-divider" />
-              <a href={void(0)} className="navbar-item">
-                Report an issue
-              </a>
-            </div>
-          </div>
         </div>
 
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <a href={void(0)} className="button is-primary">
+              <a href={void(0)} className={`button is-primary ${props.isAuthenticated ? 'is-hidden' : ''}`}>
                 <strong>Sign up</strong>
               </a>
-              <Link to="/login"  className="button is-light">
+              <Link to="/login" className={`button is-light ${props.isAuthenticated ? 'is-hidden' : ''}`}>
                 Log in
               </Link>
+              <div className={`navbar-item has-dropdown is-hoverable ${props.isAuthenticated ? '' : 'is-hidden'}`}>
+                <a href={void(0)} className="navbar-link">
+                  Más
+                </a>
+
+                <div className="navbar-dropdown is-right">
+                  <a href={void(0)} className="navbar-item">
+                    Perfil
+                  </a>
+                  <hr className="navbar-divider" />
+                  <a href={void(0)} className="navbar-item" onClick={() => log_out()}>
+                    Cerrar Sesión
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -79,4 +79,14 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+  isAuthenticated: isAuthenticated(state),
+  authenticatedUser: authenticatedUser(state)
+})
+const mapDispatchToProps = (dispatch) => ({
+  onLogOut: () => {
+    dispatch(userLogout())
+  }
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(NavBar);

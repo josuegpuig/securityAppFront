@@ -17,7 +17,11 @@ class LoginForm extends Component {
   }
   onSubmit = (event) => {
     event.preventDefault()
-    this.props.onSubmit(this.state.username, this.state.password)
+    this.props.onSubmit(this.state.email, this.state.password)
+  }
+
+  componentDidMount() {
+    //console.log(this);
   }
 
   render() {
