@@ -6,10 +6,8 @@ import Cdmx from '../assets/img/cdmx.png';
 class Home extends Component {
 
   state = {
-    stateData: {
-      full_name: null,
-      short_name: null
-    }
+    stateData: {},
+    cities: []
   }
 
   componentDidMount() {
@@ -20,10 +18,17 @@ class Home extends Component {
           stateData: res.data[0]
         })
       })
+    axios.get(`https://167.172.142.59/countries/1/states/1/cities/`)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          cities: res.data
+        })
+      })
   }
 
   render() {
-    const { stateData } = this.state;
+    const { stateData, cities } = this.state;
     return (
       <section className="section-home">
         <div className="tile is-ancestor">
@@ -33,9 +38,10 @@ class Home extends Component {
               <div className="control has-icons-left">
                 <div className="select is-medium">
                   <select>
-                    <option defaultValue>Country</option>
-                    <option>Select dropdown</option>
-                    <option>With options</option>
+                    <option defaultValue value=''>Alcaldías</option>
+                    {cities.map(city =>
+                      <option key={city.id} value={city.id}>{city.name}</option>
+                    )};
                   </select>
                 </div>
                 <span className="icon is-left">
