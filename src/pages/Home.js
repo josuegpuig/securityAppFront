@@ -16,7 +16,7 @@ class Home extends Component {
       alert('HOLA');
     }
     return (
-      <section>
+      <section className="section-home">
         <div className="tile is-ancestor">
           <div className="tile is-parent">
             <div className="tile is-child box">

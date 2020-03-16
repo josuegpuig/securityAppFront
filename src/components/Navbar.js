@@ -68,9 +68,9 @@ function NavBar() {
               <a href={void(0)} className="button is-primary">
                 <strong>Sign up</strong>
               </a>
-              <a href={void(0)} className="button is-light">
+              <Link to="/login"  className="button is-light">
                 Log in
-              </a>
+              </Link>
             </div>
           </div>
         </div>
