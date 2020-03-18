@@ -2,9 +2,11 @@ import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 import { history } from "./history";
 import auth, * as fromAuth from './reducers/auth'
+import register, * as fromRegister from './reducers/register'
 
 const createRootReducer = combineReducers({
   auth: auth,
+  register: register,
   router: connectRouter(history),
 })
 
@@ -30,3 +32,6 @@ export function withAuth(headers={}) {
     'Authorization': `Bearer ${accessToken(state)}`
   })
 }
+
+export const registerErrors =
+  state => fromRegister.errors(state.register)

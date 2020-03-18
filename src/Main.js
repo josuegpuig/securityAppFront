@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import configureStore from './configureStore'
@@ -13,7 +13,9 @@ import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import City from './pages/City';
+import CityDetails from './pages/CityDetails';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 const store = configureStore()
 
@@ -23,9 +25,14 @@ function Main() {
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <Navbar />
-          <Route exact path="/" component={Home} />
-          <PrivateRoute exact path="/city" component={City} />
-          <Route exact path="/login" component={Login} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/city" component={City} />
+            <Route exact path="/city/:id" component={CityDetails} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route path="*" component={Home} />
+          </Switch>
           <Footer />
         </ConnectedRouter>
       </Provider>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class City extends Component {
+class CityDetails extends Component {
   render() {
     const testButton = () => {
       alert('HOLA');
@@ -13,4 +13,4 @@ class City extends Component {
   }
 }
 
-export default City;
+export default CityDetails;

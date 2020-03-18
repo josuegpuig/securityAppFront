@@ -50,9 +50,9 @@ function NavBar(props) {
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <a href={void(0)} className={`button is-primary ${props.isAuthenticated ? 'is-hidden' : ''}`}>
+              <Link to="/signup" className={`button is-primary ${props.isAuthenticated ? 'is-hidden' : ''}`}>
                 <strong>Sign up</strong>
-              </a>
+              </Link>
               <Link to="/login" className={`button is-light ${props.isAuthenticated ? 'is-hidden' : ''}`}>
                 Log in
               </Link>
